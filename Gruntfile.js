@@ -6,6 +6,15 @@ module.exports = function (grunt) {
     grunt.initConfig({
         paths: {
             js: {
+                vendor: [
+                    'bower_components/respond/dest/respond.src.js',
+                    'bower_components/modernizr/modernizr.js',
+                    'bower_components/jquery/dist/jquery.js',
+                    'bower_components/d3/d3.js',
+                    'bower_components/angular/angular.js',
+                    'bower_components/angular-mocks/angular-mocks.js',
+                    'bower_components/angular-route/angular-route.js'
+                ],
                 app: [
                     'public/js/index.js',
                     'public/js/b.js'
@@ -20,9 +29,13 @@ module.exports = function (grunt) {
             }
         },
         concat: {
-            app: {
+            'js.app': {
                 src: ['<%= paths.js.app %>'],
                 dest: 'public/build/app.js'
+            },
+            'js.vendor': {
+                src: ['<%= paths.js.vendor %>'],
+                dest: 'public/build/vendor.js'
             }
         }
     });
