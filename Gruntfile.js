@@ -1,4 +1,5 @@
 module.exports = function (grunt) {
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-concat');
 
 
@@ -11,8 +12,15 @@ module.exports = function (grunt) {
                 ]
             }
         },
+        less: {
+            css: {
+                files: {
+                    'public/build/styles.css': 'public/css/index.less'
+                }
+            }
+        },
         concat: {
-            js: {
+            app: {
                 src: ['<%= paths.js.app %>'],
                 dest: 'public/build/app.js'
             }
