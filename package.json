@@ -1,0 +1,25 @@
+{
+  "name": "go-proto-dialogue",
+  "version": "0.0.0",
+  "description": "Prototype of the new Vumi Go dialogue conversation UI.",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/praekelt/go-proto-dialogue.git"
+  },
+  "keywords": [
+    "vumi-go",
+    "dialogue",
+    "ui",
+    "d3"
+  ],
+  "author": "Praekelt Foundation",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/praekelt/go-proto-dialogue/issues"
+  },
+  "homepage": "https://github.com/praekelt/go-proto-dialogue"
+}
