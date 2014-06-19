@@ -1,7 +1,8 @@
 module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-karma');
 
 
@@ -28,6 +29,15 @@ module.exports = function (grunt) {
                 vendor: ['bower_components/bootstrap/dist/css/bootstrap.css'],
                 app: ['public/css/index.less']
             }
+        },
+
+        jshint: {
+            options: {jshintrc: '.jshintrc'},
+            all: [
+                'Gruntfile.js',
+                'public/js/**/*.js',
+                'public/test/**/*.test.js'
+            ]
         },
 
         less: {
@@ -108,6 +118,7 @@ module.exports = function (grunt) {
 
 
     grunt.registerTask('test', [
+        'jshint',
         'karma'
     ]);
 
