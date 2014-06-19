@@ -36,14 +36,13 @@ function ($rootScope, utils) {
 
 
     function link($scope, $element, $attrs) {
-        console.log('aaaa');
     }
 
 
     return {
         restrict: 'E',
         replace: true,
-        template: '<div></div>',
+        template: '<div>sdfsdfsdf</div>',
         scope: {
             data: '='
         },

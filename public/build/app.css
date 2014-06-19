@@ -1,7 +1,8 @@
-.go-proto-dialogue {
+.go-dialogue {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 100px;
 }
-.go-proto-dialogue a {
+.go-dialogue a {
   color: #00B7FF;
 }

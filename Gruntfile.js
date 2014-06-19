@@ -21,12 +21,16 @@ module.exports = function (grunt) {
                     'public/js/directives.js',
                     'public/js/services.js'
                 ]
+            },
+            css: {
+                vendor: ['bower_components/bootstrap/dist/css/bootstrap.css'],
+                app: ['public/css/index.less']
             }
         },
         less: {
             css: {
                 files: {
-                    'public/build/styles.css': 'public/css/index.less'
+                    'public/build/app.css': ['<%= paths.css.app %>']
                 }
             }
         },
@@ -38,6 +42,10 @@ module.exports = function (grunt) {
             'js.vendor': {
                 src: ['<%= paths.js.vendor %>'],
                 dest: 'public/build/vendor.js'
+            },
+            'css.vendor': {
+                src: ['<%= paths.css.vendor %>'],
+                dest: 'public/build/vendor.css'
             }
         }
     });
