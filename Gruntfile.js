@@ -2,6 +2,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-karma');
 
 
     grunt.initConfig({
@@ -28,6 +29,7 @@ module.exports = function (grunt) {
                 app: ['public/css/index.less']
             }
         },
+
         less: {
             'css.app': {
                 files: {
@@ -35,6 +37,7 @@ module.exports = function (grunt) {
                 }
             }
         },
+
         concat: {
             'js.vendor': {
                 src: ['<%= paths.js.vendor %>'],
@@ -49,23 +52,68 @@ module.exports = function (grunt) {
                 dest: 'public/build/vendor.css'
             }
         },
+
         watch: {
             'js.vendor': {
                 files: ['public/bower_components/**/*.js'],
-                tasks: ['concat:js.vendor']
+                tasks: ['concat:js.vendor', 'test']
             },
             'js.app': {
                 files: ['public/js/**/*.js'],
-                tasks: ['concat:js.app']
+                tasks: ['concat:js.app', 'test']
             },
             'css.vendor': {
                 files: ['public/bower_components/**/*.css'],
-                tasks: ['concat:css.vendor']
+                tasks: ['concat:css.vendor', 'test']
             },
             'css.app': {
                 files: ['public/css/**/*.less'],
-                tasks: ['less:css.app']
+                tasks: ['less:css.app', 'test']
+            },
+            tests: {
+                files: ['public/test/**/*.test.js'],
+                tasks: ['test']
+            }
+        },
+
+        karma: {
+            dev: {
+                options: {
+                    files: [
+                        '<%= paths.js.vendor %>',
+                        '<%= paths.js.app %>',
+                        'public/build/app.css',
+                        'public/build/vendor.css',
+                        'public/test/**/*.test.js'
+                    ]
+                },
+                singleRun: true,
+                reporters: ['dots'],
+                browsers: ['PhantomJS'],
+                frameworks: ['mocha', 'chai'],
+                plugins: [
+                    'karma-chai',
+                    'karma-mocha',
+                    'karma-phantomjs-launcher'
+                ]
             }
         }
     });
+
+
+    grunt.registerTask('build', [
+        'concat',
+        'less'
+    ]);
+
+
+    grunt.registerTask('test', [
+        'karma'
+    ]);
+
+
+    grunt.registerTask('default', [
+        'build',
+        'test'
+    ]);
 };
