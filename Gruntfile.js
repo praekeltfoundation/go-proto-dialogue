@@ -1,6 +1,7 @@
 module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
 
     grunt.initConfig({
@@ -28,24 +29,42 @@ module.exports = function (grunt) {
             }
         },
         less: {
-            css: {
+            'css.app': {
                 files: {
                     'public/build/app.css': ['<%= paths.css.app %>']
                 }
             }
         },
         concat: {
-            'js.app': {
-                src: ['<%= paths.js.app %>'],
-                dest: 'public/build/app.js'
-            },
             'js.vendor': {
                 src: ['<%= paths.js.vendor %>'],
                 dest: 'public/build/vendor.js'
             },
+            'js.app': {
+                src: ['<%= paths.js.app %>'],
+                dest: 'public/build/app.js'
+            },
             'css.vendor': {
                 src: ['<%= paths.css.vendor %>'],
                 dest: 'public/build/vendor.css'
+            }
+        },
+        watch: {
+            'js.vendor': {
+                files: ['public/bower_components/**/*.js'],
+                tasks: ['concat:js.vendor']
+            },
+            'js.app': {
+                files: ['public/js/**/*.js'],
+                tasks: ['concat:js.app']
+            },
+            'css.vendor': {
+                files: ['public/bower_components/**/*.css'],
+                tasks: ['concat:css.vendor']
+            },
+            'css.app': {
+                files: ['public/css/**/*.less'],
+                tasks: ['less:css.app']
             }
         }
     });

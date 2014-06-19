@@ -42,7 +42,7 @@ function ($rootScope, utils) {
     return {
         restrict: 'E',
         replace: true,
-        template: '<div>sdfsdfsdf</div>',
+        template: '<div></div>',
         scope: {
             data: '='
         },
