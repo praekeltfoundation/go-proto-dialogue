@@ -16,8 +16,10 @@ module.exports = function (grunt) {
                     'bower_components/angular-route/angular-route.js'
                 ],
                 app: [
-                    'public/js/index.js',
-                    'public/js/b.js'
+                    'public/js/app.js',
+                    'public/js/controllers.js',
+                    'public/js/directives.js',
+                    'public/js/services.js'
                 ]
             }
         },
