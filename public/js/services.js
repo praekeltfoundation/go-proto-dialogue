@@ -17,8 +17,14 @@ services.factory('shapes', [function () {
 
             // updating
             selection
-                .attr('r', function(d) { return d.r; })
+                .attr('r', function() { return 30; })
+                .attr('cx', function(){return (Math.random() * 720);})
+                .attr('cy', function(){return (Math.random() * 300);})
                 .style('fill', color);
+
+            selection.enter().append('text')
+                .attr('dx', function(){return (Math.random() * 500);})
+                .text(function(d){return d.name;});
 
             // exiting
             selection.exit()

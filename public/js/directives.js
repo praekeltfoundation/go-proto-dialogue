@@ -12,10 +12,10 @@ function ($rootScope, utils, shapes) {
         var circle = shapes.circle();
 
         d3.select($element.get(0)).selectAll('.circle')
-            .data($scope.data.nodes, function(d) { return d.key; })
+            .data($scope.data.states, function(d) { return d.name; })
             .call(circle);
-    }
 
+    }
 
     return {
         restrict: 'E',
