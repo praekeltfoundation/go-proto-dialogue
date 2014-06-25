@@ -4,7 +4,6 @@ var services = angular.module('goDialogue.services', []);
 services.factory('utils', [function () {
 }]);
 
-
 services.factory('shapes', [function () {
     function circle(opts) {
         opts = opts || {};
