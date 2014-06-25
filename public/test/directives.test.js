@@ -5,8 +5,6 @@ describe("goDialogue.directives", function() {
     describe(".shapes", function(){
         describe(".circle", function(){
             it("should increment svg text elements", inject(function(fixtures){
-                console.log(fixtures.simple().states);
-
                 var svg = angular.element('<svg width="100" height="100"></svg>');
 
                 d3.select(svg.get(0)).selectAll('.text')
