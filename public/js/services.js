@@ -21,9 +21,8 @@ services.factory('shapes', [function () {
                 .attr('cy', function(){return (Math.random() * 300);})
                 .style('fill', color);
 
-            selection.enter().append('text')
-                .attr('dx', function(){return (Math.random() * 500);})
-                .text(function(d){return d.name;});
+            selection.append('text')
+                .attr('dx', function(){return (Math.random() * 500);});
 
             // exiting
             selection.exit()

@@ -2,19 +2,24 @@ describe("goDialogue.directives", function() {
     beforeEach(module('goDialogue.services'));
     beforeEach(module('goDialogue.directives'));
 
-    describe(".shapes", function(){
-        describe(".circle", function(){
-            it("should increment svg text elements", inject(function(fixtures){
-                var svg = angular.element('<svg width="100" height="100"></svg>');
+    describe(".goDialogueScreen", function() {
+        var $el;
 
-                d3.select(svg.get(0)).selectAll('.text')
-                    .data(fixtures.simple().states, function(d){return d.name;})
-                    .enter()
-                    .append('text');
+        beforeEach(inject(function($rootScope, $compile, fixtures) {
+            $rootScope.data = fixtures.simple();
 
-                    expect(svg.find('text')).to.have.length(3);
-                })
-            );
+            $el = angular.element([
+                '<go-dialogue-screen data-data="data" class="go-dialogue">',
+                '</go-dialogue-screen>'
+            ].join(''));
+
+            $compile($el)($rootScope);
+            $rootScope.$digest();
+
+        }));
+
+        it("should draw circles", function() {
+            expect($el.find('.circle')).to.have.length(3);
         });
     });
 });
