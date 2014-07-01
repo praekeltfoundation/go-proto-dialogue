@@ -11,18 +11,19 @@ services.factory('shapes', [function () {
 
         function component(selection) {
             // entering
-            selection.enter().append('circle')
-                .attr('class', 'circle');
+            var enter = selection.enter().append('g');
+
+                enter.append('circle')
+                    .attr('class','circle')
+                    .attr('r', function() { return 30; })
+                    .style('fill', color)
+
+                    .append('text')
+                    .attr('dx', function(){return (Math.random() * 500);});
 
             // updating
-            selection
-                .attr('r', function() { return 30; })
-                .attr('cx', function(){return (Math.random() * 720);})
-                .attr('cy', function(){return (Math.random() * 300);})
-                .style('fill', color);
-
-            selection.append('text')
-                .attr('dx', function(){return (Math.random() * 500);});
+                selection
+                    .attr('transform', 'translate (80, 0)');
 
             // exiting
             selection.exit()
