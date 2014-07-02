@@ -19,7 +19,7 @@ services.factory('shapes', [function () {
                     .style('fill', color);
 
                 enter.append('text')
-                    .attr('dx', function(){return (Math.random() * 500);});
+                    .text(function(d){return d.name;});
 
             // updating
                 selection
