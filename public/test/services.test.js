@@ -18,9 +18,9 @@ describe("goDialogue.services", function(){
                         }], function(d){return d.key;})
                     .call(circle);
 
-                    expect(svg.find('.circle')).to.have.length(2);
-                    expect(svg.find('.circle').eq(0).css('fill')).to.equal('#eeeeee');
-                    expect(svg.find('.circle').eq(1).css('fill')).to.equal('#eeeeee');
+                    expect(svg.find('.circle').find('circle')).to.have.length(2);
+                    expect(svg.find('.circle').eq(0).find('circle').css('fill')).to.equal('#eeeeee');
+                    expect(svg.find('.circle').eq(1).find('circle').css('fill')).to.equal('#eeeeee');
 
                 d3.select(svg.get(0)).selectAll('.circle')
                     .data([{
@@ -34,9 +34,9 @@ describe("goDialogue.services", function(){
                         }], function(d){return d.key;})
                     .call(circle);
 
-                    expect(svg.find('.circle')).to.have.length(2);
-                    expect(svg.find('.circle').eq(0).css('fill')).to.equal('#eeeeee');
-                    expect(svg.find('.circle').eq(1).css('fill')).to.equal('#eeeeee');
+                    expect(svg.find('.circle').find('circle')).to.have.length(2);
+                    expect(svg.find('.circle').eq(0).find('circle').css('fill')).to.equal('#eeeeee');
+                    expect(svg.find('.circle').eq(1).find('circle').css('fill')).to.equal('#eeeeee');
             }));
 
             it("should redraw text properly", inject(function(shapes){
@@ -54,9 +54,9 @@ describe("goDialogue.services", function(){
                         }], function(d){return d.key;})
                     .call(circle);
 
-                    expect(svg.find('text')).to.have.length(2);
-                    expect(svg.find('text').eq(0).text()).to.equal('Client name');
-                    expect(svg.find('text').eq(1).text()).to.equal('Surname');
+                     expect(svg.find('.circle').find('text')).to.have.length(2);
+                     expect(svg.find('.circle').find('text').eq(0).text()).to.equal('Client name');
+                     expect(svg.find('.circle').find('text').eq(1).text()).to.equal('Surname');
 
                 d3.select(svg.get(0)).selectAll('.circle')
                     .data([{
@@ -70,9 +70,9 @@ describe("goDialogue.services", function(){
                         }], function(d){return d.key;})
                     .call(circle);
 
-                    expect(svg.find('text')).to.have.length(3);
-                    expect(svg.find('text').eq(0).text()).to.equal('Client name');
-                    expect(svg.find('text').eq(2).text()).to.equal('Bye Screen');
+                     expect(svg.find('.circle').find('text')).to.have.length(2);
+                     expect(svg.find('.circle').find('text').eq(0).text()).to.equal('Client name');
+                     expect(svg.find('.circle').find('text').eq(1).text()).to.equal('Bye Screen');
             }));
         });
     });
