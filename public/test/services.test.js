@@ -55,8 +55,8 @@ describe("goDialogue.services", function(){
                     .call(circle);
 
                     expect(svg.find('text')).to.have.length(2);
-                    expect(svg.find('.circle').eq(0).find('Client name').text());
-                    expect(svg.find('.circle').eq(1).find('Surname').text());
+                    expect(svg.find('text').eq(0).text()).to.equal('Client name');
+                    expect(svg.find('text').eq(1).text()).to.equal('Surname');
 
                 d3.select(svg.get(0)).selectAll('.circle')
                     .data([{
@@ -71,9 +71,8 @@ describe("goDialogue.services", function(){
                     .call(circle);
 
                     expect(svg.find('text')).to.have.length(3);
-                    expect(svg.find('.circle').eq(0).find('Client name').text());
-                    expect(svg.find('.circle').eq(1).find('Bye Screen').text());
-
+                    expect(svg.find('text').eq(0).text()).to.equal('Client name');
+                    expect(svg.find('text').eq(2).text()).to.equal('Bye Screen');
             }));
         });
     });
