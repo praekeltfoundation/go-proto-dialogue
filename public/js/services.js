@@ -16,9 +16,9 @@ services.factory('shapes', [function () {
                 enter.append('circle')
                     .attr('class','circle')
                     .attr('r', function() { return 30; })
-                    .style('fill', color)
+                    .style('fill', color);
 
-                    .append('text')
+                enter.append('text')
                     .attr('dx', function(){return (Math.random() * 500);});
 
             // updating

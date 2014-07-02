@@ -1,11 +1,11 @@
-describe("goDialogue.directives", function() {
+describe("goDialogue.directives", function(){
     beforeEach(module('goDialogue.services'));
     beforeEach(module('goDialogue.directives'));
 
-    describe(".goDialogueScreen", function() {
+    describe("goDialogueScreen", function(){
         var $el;
 
-        beforeEach(inject(function($rootScope, $compile, fixtures) {
+        beforeEach(inject(function($rootScope, $compile, fixtures){
             $rootScope.data = fixtures.simple();
 
             $el = angular.element([
@@ -15,11 +15,18 @@ describe("goDialogue.directives", function() {
 
             $compile($el)($rootScope);
             $rootScope.$digest();
-
         }));
 
-        it("should draw circles", function() {
+        it("should check group tag", function(){
+            expect($el.find('g')).to.have.length(3);
+        });
+
+        it("should draw circles", function(){
             expect($el.find('.circle')).to.have.length(3);
+        });
+
+        it("should check appended text elements", function(){
+            expect($el.find('text')).to.have.length(3);
         });
     });
 });

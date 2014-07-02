@@ -5,7 +5,6 @@ directives.directive('goDialogueScreen', ['$rootScope', 'utils', 'shapes',
 function ($rootScope, utils, shapes) {
     function controller($scope, $element, $attrs) {
         $scope.data = $scope.data || {};
-
     }
 
 
