@@ -17,16 +17,8 @@ describe("goDialogue.directives", function(){
             $rootScope.$digest();
         }));
 
-        it("should check group tag", function(){
-            expect($el.find('g')).to.have.length(3);
-        });
-
-        it("should draw circles", function(){
-            expect($el.find('.circle')).to.have.length(3);
-        });
-
-        it("should check appended text elements", function(){
-            expect($el.find('text')).to.have.length(3);
+        it("should check number of circles drawn given the scope data", function(){
+            expect($el.find('.circle').find('circle')).to.have.length(3);
         });
     });
 });
