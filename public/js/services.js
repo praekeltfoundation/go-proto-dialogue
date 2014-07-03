@@ -4,7 +4,6 @@ var services = angular.module('goDialogue.services', []);
 services.factory('utils', [function () {
 }]);
 
-
 services.factory('shapes', [function () {
     function circle(opts) {
         opts = opts || {};
@@ -12,13 +11,19 @@ services.factory('shapes', [function () {
 
         function component(selection) {
             // entering
-            selection.enter().append('circle')
-                .attr('class', 'circle');
+            var enter = selection.enter().append('g')
+                    .attr('class', 'circle');
+
+                enter.append('circle')
+                    .attr('r', function() { return 30; })
+                    .style('fill', color);
+
+                enter.append('text')
+                    .text(function(d){return d.name;});
 
             // updating
-            selection
-                .attr('r', function(d) { return d.r; })
-                .style('fill', color);
+                selection
+                    .attr('transform', 'translate (80, 0)');
 
             // exiting
             selection.exit()

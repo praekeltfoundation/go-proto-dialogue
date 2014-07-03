@@ -94,6 +94,7 @@ module.exports = function (grunt) {
                         '<%= paths.js.app %>',
                         'public/build/app.css',
                         'public/build/vendor.css',
+                        'public/test/fixtures.js',
                         'public/test/**/*.test.js'
                     ]
                 },
