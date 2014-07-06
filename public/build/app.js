@@ -52,6 +52,8 @@ function ($scope){
             "name": "Client name",
             "store_on_contact": false,
             "text": "Enter your name:",
+            "x": 10,
+            "y": 20,
             "exit_endpoint": {
                 "uuid": "15c07a57-393d-49da-8eb6-56ba550aa7cc"
             },
@@ -67,6 +69,8 @@ function ($scope){
             "name": "Surname",
             "store_on_contact": false,
             "text": "Enter your surname:",
+            "x": 10,
+            "y": 20,
             "exit_endpoint": {
                 "uuid": "d8e397af-1496-4b54-8ac3-9950274053e2"
             },
@@ -82,6 +86,8 @@ function ($scope){
             "name": "Bye Screen",
             "store_on_contact": false,
             "text": "Cheers..Good bye!",
+            "x": 10,
+            "y": 20,
             "entry_endpoint": {
                 "uuid": "126508b4-8f06-4df8-a57f-5a23c0f72b9c"
             },
@@ -129,33 +135,31 @@ function ($scope){
 
 var directives = angular.module('goDialogue.directives', []);
 
+directives.directive('goDialogueScreen',['$rootScope', 'utils','blocks',
+    function($rootScope, utils, blocks){
+        function controller($scope, $element, $attrs){
+            $scope.data = $scope.data || {};
+        }
 
-directives.directive('goDialogueScreen', ['$rootScope', 'utils', 'shapes',
-function ($rootScope, utils, shapes) {
-    function controller($scope, $element, $attrs) {
-        $scope.data = $scope.data || {};
+        function link($scope, $element, $attrs){
+            var state = blocks.state();
+
+            d3.select($element.get(0)).selectAll('.state')
+                .data($scope.data.states, function(d){return d.name;})
+                .call(state);
+        }
+
+        return{
+            restrict: 'E',
+            replace: true,
+            template: '<svg width=600 height=600></svg>',
+            scope:{
+                data: '='
+            },
+            controller: ['$scope','$element','$attrs', controller],
+            link: link
+        };
     }
-
-
-    function link($scope, $element, $attrs) {
-        var circle = shapes.circle();
-
-        d3.select($element.get(0)).selectAll('.circle')
-            .data($scope.data.states, function(d) { return d.name; })
-            .call(circle);
-    }
-
-    return {
-        restrict: 'E',
-        replace: true,
-        template: '<svg width=600 height=600></svg>',
-        scope: {
-            data: '='
-        },
-        controller: ['$scope', '$element', '$attrs', controller],
-        link: link
-    };
-}
 ]);
 
 var services = angular.module('goDialogue.services', []);
@@ -195,5 +199,58 @@ services.factory('shapes', [function () {
 
     return {
         circle: circle
+    };
+}]);
+
+services.factory('blocks', [function () {
+    function state(opts){
+        opts = opts || {};
+        var color = opts.color || '#33cc33';
+
+        function component(selection){
+            //entering
+            var enter = selection.enter().append('g')
+                        .attr('class','state');
+
+                enter.append('rect')
+                    .attr('stroke-width', 1)
+                    .attr('stroke','black')
+                    .attr('width', 130)
+                    .attr('height', 160)
+                    .attr('rx', 6)
+                    .attr('ry', 6);
+
+                enter.append('text')
+                    .text(function(d){return d.name;})
+                    .attr('x', function(d){return d.x;})
+                    .attr('y', function(d){return d.y;})
+                    .style('fill',color);
+
+                enter.append('line')
+                    .attr('x1',function(d){return d.x - 10;})
+                    .attr('y1',function(d){return d.y + 110;})
+                    .attr('x2',function(d){return d.x + 120;})
+                    .attr('y2',function(d){return d.y + 110;})
+                    .attr('stroke','rgb(6,120,155)');
+
+                enter.append('text')
+                    .text(function(){return "edit";})
+                    .attr('x', function(d){return d.x;})
+                    .attr('y', function(d){return d.y + 128;})
+                    .style('fill',color);
+
+            //updating
+                    selection
+                    .attr('transform', function(d){return "translate("+(Math.random() * 510)+","+(0)+")";})
+                    .attr('fill','red');
+
+            //exiting
+            selection.exit()
+                .remove();
+        }
+        return component;
+    }
+    return {
+        state: state
     };
 }]);

@@ -48,18 +48,37 @@ services.factory('blocks', [function () {
             var enter = selection.enter().append('g')
                         .attr('class','state');
 
-                enter.append('foreignObject')
-                    .attr('width', '100')
-                    .attr('height', '50')
-                    .attr('requiredExtensions', 'http://www/w3.org/1999/xhtml');
+                enter.append('rect')
+                    .attr('stroke-width', 1)
+                    .attr('stroke','black')
+                    .attr('width', 130)
+                    .attr('height', 160)
+                    .attr('rx', 6)
+                    .attr('ry', 6);
 
                 enter.append('text')
                     .text(function(d){return d.name;})
+                    .attr('x', function(d){return d.x;})
+                    .attr('y', function(d){return d.y;})
+                    .style('fill',color);
+
+                enter.append('line')
+                    .attr('x1',function(d){return d.x - 10;})
+                    .attr('y1',function(d){return d.y + 110;})
+                    .attr('x2',function(d){return d.x + 120;})
+                    .attr('y2',function(d){return d.y + 110;})
+                    .attr('stroke','rgb(6,120,155)');
+
+                enter.append('text')
+                    .text(function(){return "edit";})
+                    .attr('x', function(d){return d.x;})
+                    .attr('y', function(d){return d.y + 128;})
                     .style('fill',color);
 
             //updating
                     selection
-                    .attr('transform', 'translate (80, 0)');
+                    .attr('transform', function(d){return "translate("+(Math.random() * 510)+","+(0)+")";})
+                    .attr('fill','red');
 
             //exiting
             selection.exit()
