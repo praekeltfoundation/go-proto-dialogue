@@ -46,6 +46,18 @@ services.factory('blocks', [function () {
         function component(selection){
             //entering
 
+//             var rightpane = d3.select('svg').append('g')
+//                      .attr('class','menu');
+//
+//                 rightpane.append('rect')
+//                     .attr('stroke-width', 1)
+//                     .attr('stroke','black')
+//                     .attr('width', 90)
+//                     .attr('height', 60)
+//                     .attr('rx', 6)
+//                     .attr('ry', 6)
+//                     .style('fill', 'white');
+
             var drag = d3.behavior.drag()
                 .on('drag', function(d,i){
                     d.x += d3.event.dx;
