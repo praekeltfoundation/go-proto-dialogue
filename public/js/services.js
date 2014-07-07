@@ -65,7 +65,8 @@ services.factory('blocks', [function () {
                     .attr('width', 130)
                     .attr('height', 160)
                     .attr('rx', 6)
-                    .attr('ry', 6);
+                    .attr('ry', 6)
+                    .style('fill', '#FFFFFF');
 
                 enter.append('text')
                     .text(function(d){return d.name;})
@@ -84,12 +85,16 @@ services.factory('blocks', [function () {
                     .text(function(){return "edit";})
                     .attr('x', function(d){return d.x;})
                     .attr('y', function(d){return d.y + 128;})
-                    .style('fill',color);
+                    .style('fill','black');
+
+                enter.append('text')
+                    .attr('x', function(d){return d.x + 95;})
+                    .attr('y', function(d){return d.y + 128;})
+                    .text(function(d){return 'x';});
 
             //updating
                     selection
-                    .attr('transform', function(d){return "translate("+(Math.random() * 510)+","+(0)+")";})
-                    .attr('fill','red');
+                    .attr('transform', function(d){return "translate("+(Math.random() * 510)+","+(0)+")";});
 
             //exiting
             selection.exit()
