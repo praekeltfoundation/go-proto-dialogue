@@ -17,7 +17,7 @@ directives.directive('goDialogueScreen',['$rootScope', 'utils','blocks',
         return{
             restrict: 'E',
             replace: true,
-            template: '<svg width=750 height=600></svg>',
+            template: '<svg width=990 height=600></svg>',
             scope:{
                 data: '='
             },

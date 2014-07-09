@@ -141,8 +141,8 @@ describe("goDialogue.services", function(){
                 .call(rect);
 
                 expect(svg.find('.state').find('rect')).to.have.length(2);
-                expect(svg.find('.state').eq(0).find('rect').css('fill')).to.equal('#ffffff');
-                expect(svg.find('.state').eq(1).find('rect').css('fill')).to.equal('#ffffff');
+                expect(svg.find('.state').find('text').eq(0).text()).to.equal('Client name');
+                expect(svg.find('.state').find('text').eq(3).text()).to.equal('Surname');
 
                 d3.select(svg.get(0)).selectAll('.state')
                 .data([{

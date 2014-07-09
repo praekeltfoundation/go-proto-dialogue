@@ -53,7 +53,7 @@ function ($scope){
             "store_on_contact": false,
             "text": "Enter your name:",
             "x": 10,
-            "y": 20,
+            "y": 25,
             "exit_endpoint": {
                 "uuid": "15c07a57-393d-49da-8eb6-56ba550aa7cc"
             },
@@ -69,8 +69,8 @@ function ($scope){
             "name": "Surname",
             "store_on_contact": false,
             "text": "Enter your surname:",
-            "x": 10,
-            "y": 20,
+            "x": 15,
+            "y": 29,
             "exit_endpoint": {
                 "uuid": "d8e397af-1496-4b54-8ac3-9950274053e2"
             },
@@ -86,8 +86,8 @@ function ($scope){
             "name": "Bye Screen",
             "store_on_contact": false,
             "text": "Cheers..Good bye!",
-            "x": 10,
-            "y": 20,
+            "x": 40,
+            "y": 17,
             "entry_endpoint": {
                 "uuid": "126508b4-8f06-4df8-a57f-5a23c0f72b9c"
             },
@@ -152,7 +152,7 @@ directives.directive('goDialogueScreen',['$rootScope', 'utils','blocks',
         return{
             restrict: 'E',
             replace: true,
-            template: '<svg width=750 height=600></svg>',
+            template: '<svg width=990 height=600></svg>',
             scope:{
                 data: '='
             },
@@ -204,23 +204,9 @@ services.factory('shapes', [function () {
 
 services.factory('blocks', [function () {
     function state(opts){
-        opts = opts || {};
-        var color = opts.color || '#33cc33';
 
         function component(selection){
             //entering
-
-//             var rightpane = d3.select('svg').append('g')
-//                      .attr('class','menu');
-//
-//                 rightpane.append('rect')
-//                     .attr('stroke-width', 1)
-//                     .attr('stroke','black')
-//                     .attr('width', 90)
-//                     .attr('height', 60)
-//                     .attr('rx', 6)
-//                     .attr('ry', 6)
-//                     .style('fill', 'white');
 
             var drag = d3.behavior.drag()
                 .on('drag', function(d,i){
@@ -231,42 +217,39 @@ services.factory('blocks', [function () {
                     });
                 });
 
+            var w =130,
+                h = 160;
+
             var enter = selection.enter().append('g')
                         .attr('class','state')
                         .call(drag);
 
                 enter.append('rect')
-                    .attr('stroke-width', 1)
-                    .attr('stroke','black')
-                    .attr('width', 130)
-                    .attr('height', 160)
+                    .attr('width', w)
+                    .attr('height', h)
                     .attr('rx', 6)
-                    .attr('ry', 6)
-                    .style('fill', '#FFFFFF');
+                    .attr('ry', 6);
 
                 enter.append('text')
                     .text(function(d){return d.name;})
-                    .attr('x', function(d){return d.x;})
-                    .attr('y', function(d){return d.y;})
-                    .style('fill',color);
+                    .attr('x',5)
+                    .attr('y', 12);
 
                 enter.append('line')
-                    .attr('x1',function(d){return d.x - 10;})
-                    .attr('y1',function(d){return d.y + 110;})
-                    .attr('x2',function(d){return d.x + 120;})
-                    .attr('y2',function(d){return d.y + 110;})
-                    .attr('stroke','rgb(6,120,155)');
+                    .attr('x1', 10)
+                    .attr('y1',110)
+                    .attr('x2',120)
+                    .attr('y2',110);
 
                 enter.append('text')
-                    .text(function(){return "edit";})
-                    .attr('x', function(d){return d.x;})
-                    .attr('y', function(d){return d.y + 128;})
-                    .style('fill','black');
+                    .text('edit')
+                    .attr('x', 5)
+                    .attr('y',128);
 
                 enter.append('text')
-                    .attr('x', function(d){return d.x + 95;})
-                    .attr('y', function(d){return d.y + 128;})
-                    .text(function(d){return 'x';});
+                    .attr('x', 95)
+                    .attr('y', 128)
+                    .text('x');
 
             //updating
                     selection
