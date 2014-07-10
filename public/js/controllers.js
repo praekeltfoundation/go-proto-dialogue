@@ -32,6 +32,8 @@ function ($scope){
             "name": "Client name",
             "store_on_contact": false,
             "text": "Enter your name:",
+            "x": 10,
+            "y": 25,
             "exit_endpoint": {
                 "uuid": "15c07a57-393d-49da-8eb6-56ba550aa7cc"
             },
@@ -47,6 +49,8 @@ function ($scope){
             "name": "Surname",
             "store_on_contact": false,
             "text": "Enter your surname:",
+            "x": 15,
+            "y": 29,
             "exit_endpoint": {
                 "uuid": "d8e397af-1496-4b54-8ac3-9950274053e2"
             },
@@ -62,6 +66,8 @@ function ($scope){
             "name": "Bye Screen",
             "store_on_contact": false,
             "text": "Cheers..Good bye!",
+            "x": 40,
+            "y": 17,
             "entry_endpoint": {
                 "uuid": "126508b4-8f06-4df8-a57f-5a23c0f72b9c"
             },

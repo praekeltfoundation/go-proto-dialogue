@@ -52,6 +52,8 @@ function ($scope){
             "name": "Client name",
             "store_on_contact": false,
             "text": "Enter your name:",
+            "x": 10,
+            "y": 25,
             "exit_endpoint": {
                 "uuid": "15c07a57-393d-49da-8eb6-56ba550aa7cc"
             },
@@ -67,6 +69,8 @@ function ($scope){
             "name": "Surname",
             "store_on_contact": false,
             "text": "Enter your surname:",
+            "x": 15,
+            "y": 29,
             "exit_endpoint": {
                 "uuid": "d8e397af-1496-4b54-8ac3-9950274053e2"
             },
@@ -82,6 +86,8 @@ function ($scope){
             "name": "Bye Screen",
             "store_on_contact": false,
             "text": "Cheers..Good bye!",
+            "x": 40,
+            "y": 17,
             "entry_endpoint": {
                 "uuid": "126508b4-8f06-4df8-a57f-5a23c0f72b9c"
             },
@@ -129,33 +135,31 @@ function ($scope){
 
 var directives = angular.module('goDialogue.directives', []);
 
+directives.directive('goDialogueScreen',['$rootScope', 'utils','blocks',
+    function($rootScope, utils, blocks){
+        function controller($scope, $element, $attrs){
+            $scope.data = $scope.data || {};
+        }
 
-directives.directive('goDialogueScreen', ['$rootScope', 'utils', 'shapes',
-function ($rootScope, utils, shapes) {
-    function controller($scope, $element, $attrs) {
-        $scope.data = $scope.data || {};
+        function link($scope, $element, $attrs){
+            var state = blocks.state();
+
+            d3.select($element.get(0)).selectAll('.state')
+                .data($scope.data.states, function(d){return d.name;})
+                .call(state);
+        }
+
+        return{
+            restrict: 'E',
+            replace: true,
+            template: '<svg width=990 height=600></svg>',
+            scope:{
+                data: '='
+            },
+            controller: ['$scope','$element','$attrs', controller],
+            link: link
+        };
     }
-
-
-    function link($scope, $element, $attrs) {
-        var circle = shapes.circle();
-
-        d3.select($element.get(0)).selectAll('.circle')
-            .data($scope.data.states, function(d) { return d.name; })
-            .call(circle);
-    }
-
-    return {
-        restrict: 'E',
-        replace: true,
-        template: '<svg width=600 height=600></svg>',
-        scope: {
-            data: '='
-        },
-        controller: ['$scope', '$element', '$attrs', controller],
-        link: link
-    };
-}
 ]);
 
 var services = angular.module('goDialogue.services', []);
@@ -195,5 +199,70 @@ services.factory('shapes', [function () {
 
     return {
         circle: circle
+    };
+}]);
+
+services.factory('blocks', [function () {
+    function state(){
+
+        function component(selection){
+            //entering
+
+            var drag = d3.behavior.drag()
+                .on('drag', function(d,i){
+                    d.x += d3.event.dx;
+                    d.y += d3.event.dy;
+                    d3.select(this).attr('transform', function(d, i){
+                        console.log(d.x);
+                        return "translate(" + [d.x, d.y ] + ")";
+                    });
+                });
+
+            var w =130,
+                h = 160;
+
+            var enter = selection.enter().append('g')
+                        .attr('class','state')
+                        .call(drag);
+
+                enter.append('rect')
+                    .attr('width', w)
+                    .attr('height', h)
+                    .attr('rx', 6)
+                    .attr('ry', 6);
+
+                enter.append('text')
+                    .text(function(d){return d.name;})
+                    .attr('x',5)
+                    .attr('y', 12);
+
+                enter.append('line')
+                    .attr('x1', 10)
+                    .attr('y1',110)
+                    .attr('x2',120)
+                    .attr('y2',110);
+
+                enter.append('text')
+                    .text('edit')
+                    .attr('x', 5)
+                    .attr('y',128);
+
+                enter.append('text')
+                    .attr('x', 95)
+                    .attr('y', 128)
+                    .text('x');
+
+            //updating
+                    selection
+                    .attr('transform', function(d){return "translate("+d.x+","+d.y+")";});
+
+            //exiting
+            selection.exit()
+                .remove();
+        }
+        return component;
+    }
+    return {
+        state: state
     };
 }]);
