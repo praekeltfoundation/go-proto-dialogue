@@ -17,7 +17,7 @@ describe("goDialogue.directives", function(){
             $rootScope.$digest();
         }));
 
-        it("should check number of rectangles drawn", function(){
+        it("should check number of states drawn", function(){
             expect($el.find('.state').find('rect')).to.have.length(3);
         });
     });

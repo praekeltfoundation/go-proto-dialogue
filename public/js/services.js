@@ -39,7 +39,7 @@ services.factory('shapes', [function () {
 }]);
 
 services.factory('blocks', [function () {
-    function state(opts){
+    function state(){
 
         function component(selection){
             //entering
@@ -49,6 +49,7 @@ services.factory('blocks', [function () {
                     d.x += d3.event.dx;
                     d.y += d3.event.dy;
                     d3.select(this).attr('transform', function(d, i){
+                        console.log(d.x);
                         return "translate(" + [d.x, d.y ] + ")";
                     });
                 });
@@ -89,7 +90,7 @@ services.factory('blocks', [function () {
 
             //updating
                     selection
-                    .attr('transform', function(d){return "translate("+(Math.random() * 510)+","+(0)+")";});
+                    .attr('transform', function(d){return "translate("+d.x+","+d.y+")";});
 
             //exiting
             selection.exit()
