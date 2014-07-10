@@ -5,11 +5,11 @@
 .go-dialogue a {
   color: #00B7FF;
 }
-.go-dialogue rect {
+.go-dialogue .state rect {
   stroke-width: 1;
   stroke: black;
   fill: #ffffff;
 }
-.go-dialogue line {
+.go-dialogue .state line {
   stroke: #06789b;
 }
