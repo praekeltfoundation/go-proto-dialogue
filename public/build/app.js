@@ -135,24 +135,57 @@ function ($scope){
 
 var directives = angular.module('goDialogue.directives', []);
 
-directives.directive('goDialogueScreen',['$rootScope', 'utils','blocks',
-    function($rootScope, utils, blocks){
+directives.directive('goDialogueScreen',['$rootScope', 'utils','blocks','dialoguepane','screens',
+    function($rootScope, utils, blocks, dialoguepane, screens){
         function controller($scope, $element, $attrs){
             $scope.data = $scope.data || {};
         }
 
         function link($scope, $element, $attrs){
             var state = blocks.state();
+            var pane = dialoguepane.pane();
+            var screen = screens.screen();
 
             d3.select($element.get(0)).selectAll('.state')
                 .data($scope.data.states, function(d){return d.name;})
                 .call(state);
+
+            d3.select($element.get(0)).selectAll('.pane')
+                .data([{
+                    key: 'a',
+                        type:' Dialogue Pane'
+                    }],function(d){return d.key;})
+                .call(pane);
+
+            d3.select($element.get(0)).selectAll('.screen')
+                .data([{
+                    key: 'a',
+                        type:'Multiple Choice',
+                           x: 960,
+                           y: 40
+                    },{
+                    key: 'b',
+                        type: 'Open Answer',
+                          x: 960,
+                          y: 120
+                    },{
+                    key: 'c',
+                        type: 'Show text  & close',
+                          x: 960,
+                          y: 200
+                    },{
+                    key: 'd',
+                        type: 'Add text & close',
+                          x: 960,
+                          y: 280
+                    }],function(d){return d.key;})
+                .call(screen);
         }
 
         return{
             restrict: 'E',
             replace: true,
-            template: '<svg width=990 height=600></svg>',
+            template: '<svg width=90% height=600></svg>',
             scope:{
                 data: '='
             },
@@ -202,6 +235,82 @@ services.factory('shapes', [function () {
     };
 }]);
 
+services.factory('dialoguepane', [function () {
+    function pane(){
+        function component(selection){
+
+            var w = 180,
+                h = 650;
+
+            var enter = selection.enter().append('g')
+                        .attr('class','pane');
+            //entering
+                enter.append('rect')
+                    .attr('width', w)
+                    .attr('height', h)
+                    .attr('rx', 6)
+                    .attr('x', 920)
+                    .attr('ry', 6);
+
+            //updating
+
+
+            //exiting
+        }
+        return component;
+    }
+    return {
+        pane: pane
+    };
+}]);
+
+services.factory('screens', [function () {
+    function screen(){
+        function component(selection){
+
+            var drag = d3.behavior.drag()
+                .on('drag', function(d,i){
+                    d.x += d3.event.dx;
+                    d.y += d3.event.dy;
+                    d3.select(this).attr('transform', function(d, i){
+                        return "translate(" + [d.x, d.y ] + ")";
+                    });
+                });
+
+            var w = 80,
+                h = 50;
+
+            var enter = selection.enter().append('g')
+                        .attr('class','screen')
+                        .call(drag);
+
+            //entering
+                enter.append('rect')
+                     .attr('width', w)
+                     .attr('height', h)
+                     .attr('rx', 6)
+                     .attr('ry', 6);
+
+                enter.append('text')
+                    .text(function(d){return d.type;})
+                    .attr('x',5)
+                    .attr('y', 12);
+
+            //updating
+            selection
+                    .attr('transform', function(d){return "translate("+d.x+","+d.y+")";});
+
+            //exiting
+            selection.exit()
+                .remove();
+        }
+        return component;
+    }
+    return {
+        screen: screen
+    };
+}]);
+
 services.factory('blocks', [function () {
     function state(){
 
@@ -213,7 +322,6 @@ services.factory('blocks', [function () {
                     d.x += d3.event.dx;
                     d.y += d3.event.dy;
                     d3.select(this).attr('transform', function(d, i){
-                        console.log(d.x);
                         return "translate(" + [d.x, d.y ] + ")";
                     });
                 });

@@ -13,3 +13,13 @@
 .go-dialogue .state line {
   stroke: #06789b;
 }
+.go-dialogue .pane rect {
+  stroke-width: 1;
+  stroke: black;
+  fill: #eee;
+}
+.go-dialogue .screen rect {
+  stroke-width: 1;
+  stroke: black;
+  fill: #ffffff;
+}
