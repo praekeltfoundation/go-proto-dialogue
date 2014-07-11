@@ -20,5 +20,13 @@ describe("goDialogue.directives", function(){
         it("should check number of states drawn", function(){
             expect($el.find('.state').find('rect')).to.have.length(3);
         });
+
+        it("should check right hand pane presence", function(){
+            expect($el.find('.pane').find('rect')).to.have.length(1);
+        });
+
+        it("should check the screens pane", function(){
+            expect($el.find('.screen').find('rect')).to.have.length(4);
+        });
     });
 });

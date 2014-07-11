@@ -173,3 +173,45 @@ describe("goDialogue.services", function(){
         });
     });
 });
+
+describe("goDialogue.services", function(){
+    beforeEach(module('goDialogue.services'));
+
+    describe(".screens", function(){
+        describe(".screen", function(){
+            it("should check screen types text", inject(function(screens){
+            var svg = angular.element('<svg width="100" height="100"></svg>');
+
+            d3.select(svg.get(0)).selectAll('.screen')
+                .data([{
+                    key: 'a',
+                        width: 3,
+                        height: 4,
+                        type: 'Multiple Choice'
+                    },{
+                    key: 'b',
+                        width: 5,
+                        height: 2,
+                        type: 'Open Answer'
+                    },{
+                    key: 'c',
+                        width: 7,
+                        height: 9,
+                        type: 'Show text & close'
+                    },{
+                    key: 'd',
+                        width: 8,
+                        height: 4,
+                        type: 'Add text & close'
+                    }], function(d){return d.key;})
+                .call(screens.screen());
+
+                expect(svg.find('.screen').find('rect')).to.have.length(4);
+                expect(svg.find('.screen').find('text').eq(0).text()).to.equal('Multiple Choice');
+                expect(svg.find('.screen').find('text').eq(1).text()).to.equal('Open Answer');
+                expect(svg.find('.screen').find('text').eq(2).text()).to.equal('Show text & close');
+                expect(svg.find('.screen').find('text').eq(3).text()).to.equal('Add text & close');
+            }));
+        });
+    });
+});

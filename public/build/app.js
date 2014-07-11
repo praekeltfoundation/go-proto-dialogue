@@ -160,7 +160,7 @@ directives.directive('goDialogueScreen',['$rootScope', 'utils','blocks','dialogu
             d3.select($element.get(0)).selectAll('.screen')
                 .data([{
                     key: 'a',
-                        type:' Multiple Choice',
+                        type:'Multiple Choice',
                            x: 960,
                            y: 40
                     },{
